@@ -1,14 +1,11 @@
-import store from '@/store'
 import axios from 'axios'
 import { Message } from 'element-ui'
+import Cookies from 'js-cookie'
+import { isPlainObject } from 'lodash'
+import qs from 'qs'
 import util from '@/libs/util'
-
-// 创建一个错误
-function errorCreate (msg) {
-  const error = new Error(msg)
-  errorLog(error)
-  throw error
-}
+import router from '@/router'
+import store from '@/store'
 
 // 记录和显示错误
 function errorLog (error) {
@@ -36,52 +33,61 @@ function errorLog (error) {
 // 创建一个 axios 实例
 const service = axios.create({
   baseURL: process.env.VUE_APP_API,
-  timeout: 5000 // 请求超时时间
+  timeout: 1000 * 180, // 请求超时时间
+  withCredentials: true // 当前请求为跨域类型时是否在请求中协带cookie
 })
 
-// 请求拦截器
+/**
+ * 请求拦截
+ */
 service.interceptors.request.use(
   config => {
     // 在请求发送之前做一些处理
-    const token = util.cookies.get('token')
-    // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
-    config.headers['X-Token'] = token
+    config.headers['Accept-Language'] = Cookies.get('language') || 'zh-CN'
+    config.headers['token'] = Cookies.get('token') || ''
+    // 默认参数
+    var defaults = {}
+    // 防止缓存，GET请求默认带_t参数
+    if (config.method === 'get') {
+      config.params = {
+        ...config.params,
+        ...{ '_t': new Date().getTime() }
+      }
+    }
+    if (isPlainObject(config.data)) {
+      config.data = {
+        ...defaults,
+        ...config.data
+      }
+      if (/^application\/x-www-form-urlencoded/.test(config.headers['content-type'])) {
+        config.data = qs.stringify(config.data)
+      }
+    }
     return config
   },
   error => {
     // 发送失败
     console.log(error)
-    Promise.reject(error)
+    return Promise.reject(error)
   }
 )
 
-// 响应拦截器
+/**
+ * 响应拦截
+ */
 service.interceptors.response.use(
   response => {
-    // dataAxios 是 axios 返回数据中的 data
-    const dataAxios = response.data
-    // 这个状态码是和后端约定的
-    const { code } = dataAxios
-    // 根据 code 进行判断
-    if (code === undefined) {
-      // 如果没有 code 代表这不是项目后端开发的接口 比如可能是 D2Admin 请求最新版本
-      return dataAxios
-    } else {
-      // 有 code 代表这是一个后端接口 可以进行进一步的判断
-      switch (code) {
-        case 0:
-          // [ 示例 ] code === 0 代表没有错误
-          return dataAxios.data
-        case 'xxx':
-          // [ 示例 ] 其它和后台约定的 code
-          errorCreate(`[ code: xxx ] ${dataAxios.msg}: ${response.config.url}`)
-          break
-        default:
-          // 不是正确的 code
-          errorCreate(`${dataAxios.msg}: ${response.config.url}`)
-          break
-      }
+    if (response.data.code === 401 || response.data.code === 10001) {
+      // clearLoginInfo()
+      alert('TODO clearLoginInfo')
+      router.replace({ name: 'login' })
+      return Promise.reject(response.data.msg)
     }
+    if (response.data.code !== 0) {
+      errorLog(new Error(response.data.msg))
+      return Promise.reject(response.data.msg)
+    }
+    return response.data.data
   },
   error => {
     if (error && error.response) {
