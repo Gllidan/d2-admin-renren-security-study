@@ -62,8 +62,8 @@ t.notFound.back = 'Previous Page'
 t.notFound.home = 'Home'
 
 t.login = {}
-t.login.motto = {}
-t.login.motto.text = 'Time is the most precious treasure of all wealth'
+t.login.language = 'Language'
+t.login.motto = 'Time is the most precious treasure of all wealth'
 t.login.form = {}
 t.login.form.placeholderUsername = 'username'
 t.login.form.placeholderPassword = 'password'

@@ -2,7 +2,7 @@
   <div class="page-login">
     <div class="page-login--layer page-login--layer-area">
       <ul class="circles">
-        <li v-for="n in 10" :key="n"></li>
+        <li v-for="n in 10" :key="n" />
       </ul>
     </div>
     <div
@@ -11,12 +11,19 @@
       {{time}}
     </div>
     <div class="page-login--layer">
-      <div
-        class="page-login--content"
-        flex="dir:top main:justify cross:center box:justify">
-        <div class="page-login--content-header">
-          <p class="page-login--content-header-motto">
-            {{ $t('login.motto.text') }}
+      <div class="page-login--content" flex="dir:top main:justify box:justify">
+        <div class="page-login--content-header" flex="main:justify box:justify">
+          <p class="page-login--content-header-side">
+            <span class="page-login--content-header-side-text" style="opacity: 0;"><d2-icon name="language"/> {{ $t('login.language') }}</span>
+          </p>
+          <p class="page-login--content-header-center">{{ $t('login.motto') }}</p>
+          <p class="page-login--content-header-side">
+            <el-dropdown size="small" @command="command => $i18n.locale = command">
+              <span class="page-login--content-header-side-text"><d2-icon name="language"/> {{ $t('login.language') }}</span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item v-for="(language, index) in $languages" :key="index" :command="language.value">{{ language.label }}</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </p>
         </div>
         <div
@@ -171,7 +178,15 @@ export default {
   // header
   .page-login--content-header {
     padding: 1em 0;
-    .page-login--content-header-motto {
+    .page-login--content-header-side {
+      margin: 0px 20px;
+      padding: 0px;
+      .page-login--content-header-side-text {
+        color: $color-text-normal;
+        font-size: 12px;
+      }
+    }
+    .page-login--content-header-center {
       margin: 0px;
       padding: 0px;
       color: $color-text-normal;
@@ -235,6 +250,7 @@ export default {
       padding: 0px;
       margin: 0px;
       font-size: 12px;
+      text-align: center;
       color: $color-text-normal;
       a {
         color: $color-text-normal;
