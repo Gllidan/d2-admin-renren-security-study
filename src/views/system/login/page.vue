@@ -34,22 +34,21 @@
           <!-- 表单 -->
           <div class="page-login--form">
             <el-card shadow="never">
-              <el-form ref="loginForm" label-position="top" :rules="rules" :model="formLogin" size="default">
+              <el-form ref="loginForm" label-position="top" :rules="rules" :model="form" size="default">
                 <el-form-item prop="username">
-                  <el-input type="text" v-model="formLogin.username" :placeholder="$t('login.form.placeholderUsername')">
+                  <el-input type="text" v-model="form.username" :placeholder="$t('login.form.placeholderUsername')">
                     <i slot="prepend" class="fa fa-user-circle-o"></i>
                   </el-input>
                 </el-form-item>
                 <el-form-item prop="password">
-                  <el-input type="password" v-model="formLogin.password" :placeholder="$t('login.form.placeholderPassword')">
+                  <el-input type="password" v-model="form.password" :placeholder="$t('login.form.placeholderPassword')">
                     <i slot="prepend" class="fa fa-keyboard-o"></i>
                   </el-input>
                 </el-form-item>
-                <el-form-item prop="code">
-                  <el-input type="text" v-model="formLogin.code" placeholder="- - - -">
-                    <template slot="prepend">{{ $t('login.form.textCode') }}</template>
+                <el-form-item prop="captcha">
+                  <el-input type="text" v-model="form.captcha" :placeholder="$t('login.form.placeholderCaptcha')">
                     <template slot="append">
-                      <img class="login-code" src="./image/login-code.png">
+                      <div class="login-captcha" :style="{ backgroundImage: `url(${captchaPath})` }" @click="updateUUID"/>
                     </template>
                   </el-input>
                 </el-form-item>
@@ -82,30 +81,44 @@
 <script>
 import dayjs from 'dayjs'
 import { mapActions } from 'vuex'
+import util from '@/libs/util.js'
 export default {
   data () {
     return {
       timeInterval: null,
       time: dayjs().format('HH:mm:ss'),
       // 表单
-      formLogin: {
+      form: {
         username: 'admin',
         password: 'admin',
-        code: 'v9am'
-      },
-      // 校验
-      rules: {
+        captcha: '',
+        uuid: ''
+      }
+    }
+  },
+  computed: {
+    // 校验
+    rules () {
+      return {
         username: [
           { required: true, message: this.$t('login.ruleMessage.username'), trigger: 'blur' }
         ],
         password: [
           { required: true, message: this.$t('login.ruleMessage.password'), trigger: 'blur' }
         ],
-        code: [
-          { required: true, message: this.$t('login.ruleMessage.code'), trigger: 'blur' }
+        captcha: [
+          { required: true, message: this.$t('login.ruleMessage.captcha'), trigger: 'blur' }
         ]
       }
+    },
+    // 验证码图片地址
+    captchaPath () {
+      return `${process.env.VUE_APP_API}/captcha?uuid=${this.form.uuid}`
     }
+  },
+  created () {
+    // 刷新验证码和 uuid
+    this.updateUUID()
   },
   mounted () {
     this.timeInterval = setInterval(() => {
@@ -119,13 +132,21 @@ export default {
     ...mapActions('d2admin/account', [
       'login'
     ]),
+    /**
+     * @description 刷新 uuid
+     */
+    updateUUID () {
+      this.form.uuid = util.getUUID()
+    },
+    /**
+     * @description 刷新后面的时间背景
+     */
     refreshTime () {
       this.time = dayjs().format('HH:mm:ss')
     },
     /**
      * @description 提交表单
      */
-    // 提交登录信息
     submit () {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
@@ -133,8 +154,8 @@ export default {
           // 注意 这里的演示没有传验证码
           // 具体需要传递的数据请自行修改代码
           this.login({
-            username: this.formLogin.username,
-            password: this.formLogin.password
+            username: this.form.username,
+            password: this.form.password
           })
             .then(() => {
               // 重定向对象不存在则返回顶层路径
@@ -202,7 +223,7 @@ export default {
   }
   // 登录表单
   .page-login--form {
-    width: 280px;
+    width: 290px;
     // 卡片
     .el-card {
       margin-bottom: 15px;
@@ -215,9 +236,12 @@ export default {
     .el-input-group__prepend {
       padding: 0px 14px;
     }
-    .login-code {
+    .login-captcha {
+      background-color: #dfdfdf;
       height: 40px - 2px;
-      display: block;
+      width: 126px;
+      background-size: cover;
+      background-position: cover;
       margin: 0px -20px;
       border-top-right-radius: 2px;
       border-bottom-right-radius: 2px;
