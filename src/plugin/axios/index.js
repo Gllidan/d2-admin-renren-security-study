@@ -79,7 +79,7 @@ service.interceptors.response.use(
   response => {
     if (response.data.code === 401 || response.data.code === 10001) {
       // clearLoginInfo()
-      alert('TODO clearLoginInfo')
+      // TODO: 清除用户信息
       router.replace({ name: 'login' })
       return Promise.reject(response.data.msg)
     }

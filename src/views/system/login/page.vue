@@ -81,11 +81,13 @@
 <script>
 import dayjs from 'dayjs'
 import { mapActions } from 'vuex'
+import { debounce } from 'lodash'
 import util from '@/libs/util.js'
 import { login } from '@api/sys.login'
 export default {
   data () {
     return {
+      // 动态背景
       timeInterval: null,
       time: dayjs().format('HH:mm:ss'),
       // 表单
@@ -148,7 +150,7 @@ export default {
     /**
      * @description 提交表单
      */
-    submit () {
+    submit: debounce(function () {
       this.$refs.loginForm.validate((valid) => {
         if (!valid) return
         login(this.form)
@@ -156,11 +158,9 @@ export default {
             await this.login(res)
             this.$router.replace(this.$route.query.redirect || '/')
           })
-          .catch(() => {
-            this.updateUUID()
-          })
+          .catch(this.updateUUID)
       })
-    }
+    }, 1000, { 'leading': true, 'trailing': false })
   }
 }
 </script>
