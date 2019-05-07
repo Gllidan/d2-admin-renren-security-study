@@ -44,35 +44,33 @@ export const colorfulLog = function (textArr) {
  * @description 打印 default 样式的文字
  */
 export const log = function (text) {
-  log.colorful([{ text }])
+  colorfulLog([{ text }])
 }
 
 /**
  * @description 打印 primary 样式的文字
  */
 export const primaryLog = function (text) {
-  log.colorful([{ text, type: 'primary' }])
+  colorfulLog([{ text, type: 'primary' }])
 }
 
 /**
  * @description 打印 success 样式的文字
  */
 export const successLog = function (text) {
-  log.colorful([{ text, type: 'success' }])
+  colorfulLog([{ text, type: 'success' }])
 }
 
 /**
  * @description 打印 warning 样式的文字
  */
 export const warningLog = function (text) {
-  log.colorful([{ text, type: 'warning' }])
+  colorfulLog([{ text, type: 'warning' }])
 }
 
 /**
  * @description 打印 danger 样式的文字
  */
 export const dangerLog = function (text) {
-  log.colorful([{ text, type: 'danger' }])
+  colorfulLog([{ text, type: 'danger' }])
 }
-
-export default log

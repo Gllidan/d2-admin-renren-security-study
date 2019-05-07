@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
-import Cookies from 'js-cookie'
+import { cookieGet } from '@/common/cookie'
 import { isPlainObject } from 'lodash'
 import qs from 'qs'
 import { dangerLog } from '@/common/log'
@@ -9,6 +9,7 @@ import store from '@/store'
 
 // 记录和显示错误
 function errorLog (error) {
+  console.log(process.env.NODE_ENV)
   // 添加到日志
   store.dispatch('d2admin/log/push', {
     message: '数据请求异常',
@@ -43,8 +44,8 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     // 在请求发送之前做一些处理
-    config.headers['Accept-Language'] = Cookies.get('language') || 'zh-CN'
-    config.headers['token'] = Cookies.get('token') || ''
+    config.headers['Accept-Language'] = cookieGet('language') || 'zh-CN'
+    config.headers['token'] = cookieGet('token') || ''
     // 默认参数
     var defaults = {}
     // 防止缓存，GET请求默认带_t参数
