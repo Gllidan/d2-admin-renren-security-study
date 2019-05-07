@@ -90,7 +90,7 @@ module.exports = {
       .add(resolve('src/assets/svg-icons/icons'))
       .end()
     // 重新设置 alias
-    config.resolve.alias
-      .set('@api', resolve('src/api'))
+    // config.resolve.alias
+    //   .set('@api', resolve('src/api'))
   }
 }
