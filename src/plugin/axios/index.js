@@ -3,7 +3,7 @@ import { Message } from 'element-ui'
 import Cookies from 'js-cookie'
 import { isPlainObject } from 'lodash'
 import qs from 'qs'
-import util from '@/utils/util'
+import { dangerLog } from '@/utils/log'
 import router from '@/router'
 import store from '@/store'
 
@@ -19,7 +19,7 @@ function errorLog (error) {
   })
   // 打印到控制台
   if (process.env.NODE_ENV === 'development') {
-    util.log.danger('>>>>>> Error >>>>>>')
+    dangerLog('>>>>>> Error >>>>>>')
     console.log(error)
   }
   // 显示提示
