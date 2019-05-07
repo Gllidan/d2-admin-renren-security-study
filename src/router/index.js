@@ -7,7 +7,7 @@ import 'nprogress/nprogress.css'
 
 import store from '@/store/index'
 
-import { cookieGet } from '@/utils/cookie'
+import { cookieGet } from '@/common/cookie'
 
 // 路由数据
 import routes from './routes'

@@ -3,7 +3,7 @@ import { Message } from 'element-ui'
 import Cookies from 'js-cookie'
 import { isPlainObject } from 'lodash'
 import qs from 'qs'
-import { dangerLog } from '@/utils/log'
+import { dangerLog } from '@/common/log'
 import router from '@/router'
 import store from '@/store'
 
