@@ -11,6 +11,7 @@ export default {
         // renren
         var route = window.SITE_CONFIG['dynamicMenuRoutes'].filter(item => item.meta.menuId === index)[0]
         if (route) {
+          // TODO: 这个模式的有隐藏弊端，不能带参数
           this.$router.push({ name: route.name })
         }
       }
