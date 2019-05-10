@@ -1,12 +1,26 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '@/store/index'
-import { renrenMenuToD2AdminMenu } from '@/common/compatibility'
 import { sysMenuService } from '@/common/api'
 import { isURL } from '@/common/validate'
 
 Vue.use(VueRouter)
 
+/**
+ * 删除无用的 children 字段以及精简数据
+ * @param {Array} menuArray 后台返回的菜单格式
+ */
+function removeEmptyChildrenKey (menuArray) {
+  const transform = menu => ({
+    ...menu.children.length > 0 ? { children: menu.children.map(e => transform(e)) } : {},
+    id: menu.id,
+    icon: menu.icon,
+    name: menu.name
+  })
+  return menuArray.map(e => transform(e))
+}
+
+// 页面路由(独立页面)
 export const pageRoutes = [
   {
     path: '/login',
@@ -68,7 +82,7 @@ router.beforeEach((to, from, next) => {
     //   return next({ name: 'login' })
     // }
     window.SITE_CONFIG['menuList'] = res
-    store.commit('d2admin/menu/asideSet', renrenMenuToD2AdminMenu(res))
+    store.commit('d2admin/menu/asideSet', removeEmptyChildrenKey(res))
     fnAddDynamicMenuRoutes(window.SITE_CONFIG['menuList'])
     next({ ...to, replace: true })
   }).catch(() => {
@@ -125,7 +139,7 @@ function fnAddDynamicMenuRoutes (menuList = [], routes = []) {
     } else {
       URL = URL.replace(/^\//, '').replace(/_/g, '-')
       route['path'] = route['name'] = URL.replace(/\//g, '-')
-      route['component'] = () => import(`@/views/system/${URL}`)
+      route['component'] = () => import(`@/views/modules/${URL}`)
     }
     console.group('fnAddDynamicMenuRoutes')
     console.log(route.path)

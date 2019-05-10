@@ -1,3 +1,4 @@
+import { hasPermission } from '@/common/renren'
 // i18n
 import i18n, { messages } from '@/i18n'
 // Element
@@ -10,6 +11,8 @@ import '@/components'
 // svg 图标
 import '@/assets/svg-icons'
 
+import $http from '@/plugin/axios'
+
 // 功能插件
 import pluginError from '@/plugin/error'
 import pluginLog from '@/plugin/log'
@@ -20,6 +23,10 @@ export default {
     // 设置为 false 以阻止 vue 在启动时生成生产提示
     // https://cn.vuejs.org/v2/api/#productionTip
     Vue.config.productionTip = false
+    // [ renren ] 挂载全局
+    Vue.prototype.$http = $http
+    // [ renren ] 挂载全局
+    Vue.prototype.$hasPermission = hasPermission
     // 当前环境
     Vue.prototype.$env = process.env.NODE_ENV
     // 当前的 baseUrl

@@ -17,7 +17,7 @@
 
 <script>
 import Cookies from 'js-cookie'
-import { Script } from 'vm';
+// import { Script } from 'vm'
 export default {
   data () {
     return {
