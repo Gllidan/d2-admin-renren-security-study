@@ -8,16 +8,41 @@ Vue.use(VueRouter)
 
 /**
  * 删除无用的 children 字段以及精简数据
- * @param {Array} menuArray 后台返回的菜单格式
+ * @param {Array} routeNameDict renrenMenuToRouteNameDict 生成的菜单名称和 id 的对照表
  */
-function removeEmptyChildrenKey (menuArray) {
+function renrenMenuToD2AdminMenu (menuArray, routeNameDict) {
   const transform = menu => ({
     ...menu.children.length > 0 ? { children: menu.children.map(e => transform(e)) } : {},
     id: menu.id,
     icon: menu.icon,
-    name: menu.name
+    title: menu.name,
+    name: routeNameDict[menu.id]
   })
   return menuArray.map(e => transform(e))
+}
+
+/**
+ * 将后台传来的菜单数据整理成 [{ id: routeName }] 的键值对数组
+ * @param {Array} menuArray 后台返回的菜单格式
+ */
+function renrenMenuToRouteNameDict (menuArray) {
+  const dict = {}
+  const step = menu => {
+    var route = window.SITE_CONFIG['dynamicMenuRoutes'].filter(item => item.meta.menuId === menu.id)[0]
+    if (route) {
+      Object.defineProperty(dict, menu.id, {
+        value: route.name
+      })
+    }
+    if (menu.children.length > 0) {
+      menu.children.forEach(step)
+    }
+  }
+  menuArray.forEach(step)
+  console.group('renrenMenuToRouteNameDict')
+  console.log('dict: ', dict)
+  console.groupEnd()
+  return dict
 }
 
 // 页面路由(独立页面)
@@ -82,10 +107,13 @@ router.beforeEach((to, from, next) => {
     //   return next({ name: 'login' })
     // }
     window.SITE_CONFIG['menuList'] = res
-    store.commit('d2admin/menu/asideSet', removeEmptyChildrenKey(res))
     fnAddDynamicMenuRoutes(window.SITE_CONFIG['menuList'])
+    const routeNameDict = renrenMenuToRouteNameDict(res)
+    store.commit('d2admin/menu/asideSet', renrenMenuToD2AdminMenu(res, routeNameDict))
+    renrenMenuToRouteNameDict(res)
     next({ ...to, replace: true })
-  }).catch(() => {
+  }).catch(error => {
+    console.log('error', error)
     next({ name: 'login' })
   })
 })
@@ -131,6 +159,7 @@ function fnAddDynamicMenuRoutes (menuList = [], routes = []) {
         title: menuList[i].name
       }
     }
+    // TODO: 因为下面的 eval(s2) 导致暂时只能使用 window.SITE_CONFIG 全局变量。s2 的值中存在这短代码
     // eslint-disable-next-line
     let URL = (menuList[i].url || '').replace(/{{([^}}]+)?}}/g, (s1, s2) => eval(s2)) // URL支持{{ window.xxx }}占位符变量
     if (isURL(URL)) {
