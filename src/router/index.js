@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 import store from '@/store/index'
 import { sysMenuService } from '@/common/api'
 import { isURL } from '@/common/validate'
@@ -8,7 +10,7 @@ Vue.use(VueRouter)
 
 /**
  * 删除无用的 children 字段以及精简数据
- * @param {Array} routeNameDict renrenMenuToRouteNameDict 生成的菜单名称和 id 的对照表
+ * @param {Array} routeNameDict renrenMenuToRouteDict 生成的菜单名称和 id 的对照表
  */
 function renrenMenuToD2AdminMenu (menuArray, routeNameDict) {
   const transform = menu => ({
@@ -22,16 +24,33 @@ function renrenMenuToD2AdminMenu (menuArray, routeNameDict) {
 }
 
 /**
+ * 将后台返回的数据转化成 d2admin/page/init 使用的数据
+ * @param {Array} menuArray 后台返回的菜单格式
+ * @param {Array} routeNameDict renrenMenuToRouteDict 生成的菜单名称和 id 的对照表
+ */
+function renrenMenuToD2AdminPageInitData (menuArray, routeNameDict, routePathDict) {
+  const transform = menu => ({
+    ...menu.children.length > 0 ? { children: menu.children.map(e => transform(e)) } : {},
+    meta: {
+      title: menu.name
+    },
+    name: routeNameDict[menu.id],
+    path: routePathDict[menu.id]
+  })
+  return menuArray.map(e => transform(e))
+}
+
+/**
  * 将后台传来的菜单数据整理成 [{ id: routeName }] 的键值对数组
  * @param {Array} menuArray 后台返回的菜单格式
  */
-function renrenMenuToRouteNameDict (menuArray) {
+function renrenMenuToRouteDict (menuArray, routePropName = 'name') {
   const dict = {}
   const step = menu => {
     var route = window.SITE_CONFIG['dynamicMenuRoutes'].filter(item => item.meta.menuId === menu.id)[0]
     if (route) {
       Object.defineProperty(dict, menu.id, {
-        value: route.name
+        value: route[routePropName]
       })
     }
     if (menu.children.length > 0) {
@@ -98,6 +117,7 @@ router.beforeEach((to, from, next) => {
   // 添加动态(菜单)路由
   // 已添加或者当前路由为页面路由, 可直接访问
   if (window.SITE_CONFIG['dynamicMenuRoutesHasAdded'] || fnCurrentRouteIsPageRoute(to, pageRoutes)) {
+    NProgress.start()
     return next()
   }
   // 获取菜单列表, 添加并全局变量保存
@@ -108,9 +128,12 @@ router.beforeEach((to, from, next) => {
     // }
     window.SITE_CONFIG['menuList'] = res
     fnAddDynamicMenuRoutes(window.SITE_CONFIG['menuList'])
-    const routeNameDict = renrenMenuToRouteNameDict(res)
+    // 性能优化 提前计算出路由 id 和 route 属性的对照
+    const routeNameDict = renrenMenuToRouteDict(res, 'name')
+    const routePathDict = renrenMenuToRouteDict(res, 'path')
+    console.log(renrenMenuToD2AdminPageInitData(res, routeNameDict, routePathDict))
     store.commit('d2admin/menu/asideSet', renrenMenuToD2AdminMenu(res, routeNameDict))
-    renrenMenuToRouteNameDict(res)
+    store.commit('d2admin/page/init', renrenMenuToD2AdminPageInitData(res, routeNameDict, routePathDict))
     next({ ...to, replace: true })
   }).catch(error => {
     console.log('error', error)
@@ -190,5 +213,12 @@ function fnAddDynamicMenuRoutes (menuList = [], routes = []) {
   window.SITE_CONFIG['dynamicMenuRoutes'] = routes
   window.SITE_CONFIG['dynamicMenuRoutesHasAdded'] = true
 }
+
+router.afterEach(to => {
+  // 进度条
+  NProgress.done()
+  // 多页控制 打开新的页面
+  store.dispatch('d2admin/page/open', to)
+})
 
 export default router
