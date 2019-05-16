@@ -23,10 +23,12 @@ function renrenMenuToD2AdminMenu (menuArray, routeNameDict) {
   return menuArray.map(e => transform(e))
 }
 
+
+
 /**
  * 将后台返回的数据转化成 d2admin/page/init 使用的数据
  * @param {Array} menuArray 后台返回的菜单格式
- * @param {Array} routeNameDict renrenMenuToRouteDict 生成的菜单名称和 id 的对照表
+ * @param {Array} routeNameDict renrenMenuToRouteDict 生成的菜单名称和 path 的对照表
  */
 function renrenMenuToD2AdminPageInitData (menuArray, routeNameDict, routePathDict) {
   const transform = menu => ({
@@ -62,6 +64,22 @@ function renrenMenuToRouteDict (menuArray, routePropName = 'name') {
   console.log('dict: ', dict)
   console.groupEnd()
   return dict
+}
+
+/**
+ * 将后台返回的数据转化成 d2admin/page/init 使用的数据
+ * @param {Array} menuArray 后台返回的菜单格式
+ * @param {Array} routeNameDict renrenMenuToRouteDict 生成的菜单名称和 id 的对照表
+ * @param {Array} routePathDict renrenMenuToRouteDict 生成的菜单名称和 path 的对照表
+ */
+function renrenMenuToD2AdminSearchInitData (menuArray, routeNameDict, routePathDict) {
+  const transform = menu => ({
+    ...menu.children.length > 0 ? { children: menu.children.map(e => transform(e)) } : {},
+    path: routePathDict[menu.id],
+    title: menu.name,
+    icon: menu.icon
+  })
+  return menuArray.map(e => transform(e))
 }
 
 // 页面路由(独立页面)
@@ -114,10 +132,14 @@ const router = new VueRouter({
  * 权限验证
  */
 router.beforeEach((to, from, next) => {
+  // 进度条
+  NProgress.start()
+  // 关闭搜索面板
+  store.commit('d2admin/search/set', false)
   // 添加动态(菜单)路由
   // 已添加或者当前路由为页面路由, 可直接访问
   if (window.SITE_CONFIG['dynamicMenuRoutesHasAdded'] || fnCurrentRouteIsPageRoute(to, pageRoutes)) {
-    NProgress.start()
+    
     return next()
   }
   // 获取菜单列表, 添加并全局变量保存
@@ -134,6 +156,7 @@ router.beforeEach((to, from, next) => {
     console.log(renrenMenuToD2AdminPageInitData(res, routeNameDict, routePathDict))
     store.commit('d2admin/menu/asideSet', renrenMenuToD2AdminMenu(res, routeNameDict))
     store.commit('d2admin/page/init', renrenMenuToD2AdminPageInitData(res, routeNameDict, routePathDict))
+    store.commit('d2admin/search/init', renrenMenuToD2AdminSearchInitData(res, routeNameDict, routePathDict))
     next({ ...to, replace: true })
   }).catch(error => {
     console.log('error', error)
