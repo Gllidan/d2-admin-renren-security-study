@@ -19,8 +19,7 @@ export const sysAccountService = {
 export const sysInfoService = {
   get () {
     return request({
-      url: '/sys/info',
-      method: 'get'
+      url: '/sys/info'
     })
   }
 }
@@ -31,8 +30,29 @@ export const sysInfoService = {
 export const sysMenuService = {
   getNav () {
     return request({
-      url: '/sys/menu/nav',
-      method: 'get'
+      url: '/sys/menu/nav'
+    })
+  },
+    /**
+   * 获取权限
+   */
+  getPermissions () {
+    return request({
+      url: '/sys/menu/permissions'
+    })
+  }
+}
+
+/**
+ * @description [ sys ] 用户相关
+ */
+export const sysUserService = {
+  /**
+   * 获取用户信息
+   */
+  getInfo () {
+    return request({
+      url: '/sys/user/info'
     })
   }
 }

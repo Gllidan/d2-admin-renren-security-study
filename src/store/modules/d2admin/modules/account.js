@@ -12,13 +12,7 @@ export default {
      */
     login ({ dispatch }, userInfo) {
       return new Promise(async (resolve, reject) => {
-        // TODO: renren 返回的信息里没有 uuid
-        cookieSet('uuid', 'xxxxxxxxxxxxxxxxxxx')
         cookieSet('token', userInfo.token)
-        // 设置 vuex 用户信息
-        await dispatch('d2admin/user/set', {
-          name: 'D2Admin'
-        }, { root: true })
         // 用户登录后从持久化数据加载一系列的设置
         await dispatch('load')
         // 结束
@@ -35,11 +29,8 @@ export default {
        * @description 注销
        */
       async function logout () {
-        // 删除cookie
         cookieRemove('token')
-        cookieRemove('uuid')
-        // 清空 vuex 用户信息
-        await dispatch('d2admin/user/set', {}, { root: true })
+        window.SITE_CONFIG['dynamicMenuRoutesHasAdded'] = false
         // 跳转路由
         router.push({
           name: 'login'
@@ -73,8 +64,6 @@ export default {
      */
     load ({ dispatch }) {
       return new Promise(async resolve => {
-        // DB -> store 加载用户名
-        await dispatch('d2admin/user/load', null, { root: true })
         // DB -> store 加载主题
         await dispatch('d2admin/theme/load', null, { root: true })
         // DB -> store 加载页面过渡效果设置
