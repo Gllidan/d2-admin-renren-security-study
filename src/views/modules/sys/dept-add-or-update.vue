@@ -1,3 +1,12 @@
+<!--
+ * @Description: file content
+ * @Author: huqi
+ * @GitHub: https://github.com/hu-qi
+ * @Email: me@huqi.me
+ * @Date: 2019-05-08 22:30:40
+ * @LastEditors: huqi
+ * @LastEditTime: 2019-05-18 13:19:21
+ -->
 <template>
   <el-dialog :visible.sync="visible" :title="!dataForm.id ? $t('add') : $t('update')" :close-on-click-modal="false" :close-on-press-escape="false">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmitHandle()" label-width="120px">
@@ -19,7 +28,8 @@
         </el-popover>
         <el-input v-model="dataForm.parentName" v-popover:deptListPopover :readonly="true" :placeholder="$t('dept.parentName')">
           <i
-            v-if="$store.state.d2admin.user.info.superAdmin === 1 && dataForm.pid !== '0'"            slot="suffix"
+            v-if="$store.state.d2admin.user.info.superAdmin === 1 && dataForm.pid !== '0'"
+            slot="suffix"
             @click.stop="deptListTreeSetDefaultHandle()"
             class="el-icon-circle-close el-input__icon">
           </i>

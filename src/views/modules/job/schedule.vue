@@ -1,3 +1,12 @@
+<!--
+ * @Description: file content
+ * @Author: huqi
+ * @GitHub: https://github.com/hu-qi
+ * @Email: me@huqi.me
+ * @Date: 2019-05-08 22:22:36
+ * @LastEditors: huqi
+ * @LastEditTime: 2019-05-18 13:21:32
+ -->
 <template>
   <d2-container>
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
@@ -44,7 +53,7 @@
           <el-tag v-else size="small" type="danger">{{ $t('schedule.status0') }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('handle')" fixed="right" header-align="center" align="center" width="150">
+      <el-table-column :label="$t('handle')" fixed="right" header-align="center" align="center" width="200">
         <template slot-scope="scope">
           <el-button v-if="$hasPermission('sys:schedule:update')" type="text" size="small" @click="addOrUpdateHandle(scope.row.id)">{{ $t('update') }}</el-button>
           <el-button v-if="$hasPermission('sys:schedule:pause')" type="text" size="small" @click="pauseHandle(scope.row.id)">{{ $t('schedule.pause') }}</el-button>

@@ -1,3 +1,12 @@
+<!--
+ * @Description: file content
+ * @Author: huqi
+ * @GitHub: https://github.com/hu-qi
+ * @Email: me@huqi.me
+ * @Date: 2019-04-29 16:58:49
+ * @LastEditors: huqi
+ * @LastEditTime: 2019-05-18 13:23:28
+ -->
 <template>
   <div
     v-loading.fullscreen.lock="loading" :element-loading-text="$t('loading')"
@@ -28,9 +37,7 @@
         <div class="d2-header-right" flex-box="0">
           <!-- 如果你只想在开发环境显示这个按钮请添加 v-if="$env === 'development'" -->
           <d2-header-search @click="handleSearchClick"/>
-          <d2-header-log/>
           <d2-header-fullscreen/>
-          <d2-header-theme/>
           <d2-header-size/>
           <d2-header-user/>
         </div>
@@ -89,9 +96,7 @@ import d2Tabs from './components/tabs'
 import d2HeaderFullscreen from './components/header-fullscreen'
 import d2HeaderSearch from './components/header-search'
 import d2HeaderSize from './components/header-size'
-import d2HeaderTheme from './components/header-theme'
 import d2HeaderUser from './components/header-user'
-import d2HeaderLog from './components/header-log'
 import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
 import mixinSearch from './mixins/search'
 export default {
@@ -106,9 +111,7 @@ export default {
     d2HeaderFullscreen,
     d2HeaderSearch,
     d2HeaderSize,
-    d2HeaderTheme,
-    d2HeaderUser,
-    d2HeaderLog
+    d2HeaderUser
   },
   data () {
     return {

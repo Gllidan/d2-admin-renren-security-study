@@ -1,3 +1,12 @@
+<!--
+ * @Description: file content
+ * @Author: huqi
+ * @GitHub: https://github.com/hu-qi
+ * @Email: me@huqi.me
+ * @Date: 2019-05-08 22:24:13
+ * @LastEditors: huqi
+ * @LastEditTime: 2019-05-18 13:15:51
+ -->
 <template>
   <el-dialog :visible.sync="visible" :title="!dataForm.id ? $t('add') : $t('update')" :close-on-click-modal="false" :close-on-press-escape="false">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmitHandle()" label-width="120px">
@@ -9,7 +18,7 @@
       </el-form-item>
       <el-form-item prop="content" :label="$t('mail.content')">
         <!-- 富文本编辑器, 容器 -->
-        <div id="J_quillEditor"></div>
+        <div id="J_quillEditor" style="height: 200px;"></div>
         <!-- 自定义上传图片功能 (使用element upload组件) -->
         <el-upload
           :action="uploadUrl"

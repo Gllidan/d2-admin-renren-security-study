@@ -1,3 +1,12 @@
+/*
+ * @Description: file content
+ * @Author: huqi
+ * @GitHub: https://github.com/hu-qi
+ * @Email: me@huqi.me
+ * @Date: 2019-04-29 16:58:49
+ * @LastEditors: huqi
+ * @LastEditTime: 2019-05-18 13:24:53
+ */
 import { Message, MessageBox } from 'element-ui'
 import { cookieSet, cookieRemove } from '@/common/cookie'
 import router from '@/router'
@@ -72,8 +81,6 @@ export default {
         await dispatch('d2admin/page/openedLoad', null, { root: true })
         // DB -> store 持久化数据加载侧边栏折叠状态
         await dispatch('d2admin/menu/asideCollapseLoad', null, { root: true })
-        // DB -> store 持久化数据加载全局尺寸
-        await dispatch('d2admin/size/load', null, { root: true })
         // end
         resolve()
       })

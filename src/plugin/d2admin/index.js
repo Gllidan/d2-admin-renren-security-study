@@ -5,7 +5,7 @@
  * @Email: me@huqi.me
  * @Date: 2019-04-29 16:58:49
  * @LastEditors: huqi
- * @LastEditTime: 2019-05-17 23:14:02
+ * @LastEditTime: 2019-05-18 13:24:22
  */
 import { hasPermission } from '@/common/renren'
 // i18n
@@ -23,7 +23,6 @@ import '@/assets/svg-icons'
 import $http from '@/plugin/axios'
 
 // 功能插件
-import pluginLog from '@/plugin/log'
 import pluginOpen from '@/plugin/open'
 
 export default {
@@ -53,7 +52,6 @@ export default {
       i18n: (key, value) => i18n.t(key, value)
     })
     // 插件
-    Vue.use(pluginLog)
     Vue.use(pluginOpen)
   }
 }
