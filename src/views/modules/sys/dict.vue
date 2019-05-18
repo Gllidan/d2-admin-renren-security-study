@@ -1,3 +1,12 @@
+<!--
+ * @Description: file content
+ * @Author: huqi
+ * @GitHub: https://github.com/hu-qi
+ * @Email: me@huqi.me
+ * @Date: 2019-05-08 22:32:01
+ * @LastEditors: huqi
+ * @LastEditTime: 2019-05-18 11:46:00
+ -->
 <template>
   <d2-container>
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
@@ -23,6 +32,7 @@
     <el-table
       v-loading="dataListLoading"
       :data="dataList"
+      row-key="id"
       border
       @selection-change="dataListSelectionChangeHandle"
       @sort-change="dataListSortChangeHandle"

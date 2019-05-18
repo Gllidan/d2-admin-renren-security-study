@@ -1,3 +1,12 @@
+<!--
+ * @Description: file content
+ * @Author: huqi
+ * @GitHub: https://github.com/hu-qi
+ * @Email: me@huqi.me
+ * @Date: 2019-05-08 22:31:33
+ * @LastEditors: huqi
+ * @LastEditTime: 2019-05-18 13:07:30
+ -->
 <template>
   <d2-container>
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
@@ -5,7 +14,11 @@
         <el-button v-if="$hasPermission('sys:dept:save')" type="primary" @click="addOrUpdateHandle()">{{ $t('add') }}</el-button>
       </el-form-item>
     </el-form>
-    <el-table v-loading="dataListLoading" :data="dataList" border style="width: 100%;">
+    <el-table
+      v-loading="dataListLoading"
+      :data="dataList"
+      border
+      style="width: 100%;">
       <table-tree-column prop="name" :label="$t('dept.name')" header-align="center"></table-tree-column>
       <el-table-column prop="parentName" :label="$t('dept.parentName')" header-align="center" align="center"></el-table-column>
       <el-table-column prop="sort" :label="$t('dept.sort')" header-align="center" align="center" width="80"></el-table-column>

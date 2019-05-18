@@ -23,8 +23,6 @@ function renrenMenuToD2AdminMenu (menuArray, routeNameDict) {
   return menuArray.map(e => transform(e))
 }
 
-
-
 /**
  * 将后台返回的数据转化成 d2admin/page/init 使用的数据
  * @param {Array} menuArray 后台返回的菜单格式
@@ -139,7 +137,6 @@ router.beforeEach((to, from, next) => {
   // 添加动态(菜单)路由
   // 已添加或者当前路由为页面路由, 可直接访问
   if (window.SITE_CONFIG['dynamicMenuRoutesHasAdded'] || fnCurrentRouteIsPageRoute(to, pageRoutes)) {
-    
     return next()
   }
   // 获取菜单列表, 添加并全局变量保存

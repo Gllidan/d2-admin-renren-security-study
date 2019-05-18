@@ -33,7 +33,7 @@ export const sysMenuService = {
       url: '/sys/menu/nav'
     })
   },
-    /**
+  /**
    * 获取权限
    */
   getPermissions () {

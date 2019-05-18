@@ -1,3 +1,12 @@
+/*
+ * @Description: file content
+ * @Author: huqi
+ * @GitHub: https://github.com/hu-qi
+ * @Email: me@huqi.me
+ * @Date: 2019-04-29 16:58:49
+ * @LastEditors: huqi
+ * @LastEditTime: 2019-05-17 23:14:02
+ */
 import { hasPermission } from '@/common/renren'
 // i18n
 import i18n, { messages } from '@/i18n'
@@ -14,7 +23,6 @@ import '@/assets/svg-icons'
 import $http from '@/plugin/axios'
 
 // 功能插件
-import pluginError from '@/plugin/error'
 import pluginLog from '@/plugin/log'
 import pluginOpen from '@/plugin/open'
 
@@ -45,7 +53,6 @@ export default {
       i18n: (key, value) => i18n.t(key, value)
     })
     // 插件
-    Vue.use(pluginError)
     Vue.use(pluginLog)
     Vue.use(pluginOpen)
   }

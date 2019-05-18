@@ -7,7 +7,7 @@
       drag
       :before-upload="beforeUploadHandle"
       :on-success="successHandle"
-      class="text-center">
+      class="d2-text-center">
       <i class="el-icon-upload"></i>
       <div class="el-upload__text" v-html="$t('upload.text')"></div>
       <div class="el-upload__tip" slot="tip">{{ $t('upload.tip', { 'format': 'zip、xml、bar、bpmn' }) }}</div>
