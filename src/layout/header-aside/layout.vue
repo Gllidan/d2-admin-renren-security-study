@@ -5,7 +5,7 @@
  * @Email: me@huqi.me
  * @Date: 2019-04-29 16:58:49
  * @LastEditors: huqi
- * @LastEditTime: 2019-05-19 11:13:27
+ * @LastEditTime: 2019-05-19 11:19:16
  -->
 <template>
   <div
@@ -39,6 +39,7 @@
           <d2-header-search @click="handleSearchClick"/>
           <d2-header-fullscreen/>
           <d2-header-theme/>
+          <d2-header-lang/>
           <d2-header-user/>
         </div>
       </div>
@@ -96,6 +97,7 @@ import d2Tabs from './components/tabs'
 import d2HeaderFullscreen from './components/header-fullscreen'
 import d2HeaderTheme from './components/header-theme'
 import d2HeaderSearch from './components/header-search'
+import d2HeaderLang from './components/header-lang'
 import d2HeaderUser from './components/header-user'
 import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
 import mixinSearch from './mixins/search'
@@ -111,6 +113,7 @@ export default {
     d2HeaderFullscreen,
     d2HeaderTheme,
     d2HeaderSearch,
+    d2HeaderLang,
     d2HeaderUser
   },
   data () {
