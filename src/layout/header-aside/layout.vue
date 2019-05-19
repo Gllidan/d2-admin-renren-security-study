@@ -5,7 +5,7 @@
  * @Email: me@huqi.me
  * @Date: 2019-04-29 16:58:49
  * @LastEditors: huqi
- * @LastEditTime: 2019-05-18 13:23:28
+ * @LastEditTime: 2019-05-19 11:13:27
  -->
 <template>
   <div
@@ -38,7 +38,7 @@
           <!-- 如果你只想在开发环境显示这个按钮请添加 v-if="$env === 'development'" -->
           <d2-header-search @click="handleSearchClick"/>
           <d2-header-fullscreen/>
-          <d2-header-size/>
+          <d2-header-theme/>
           <d2-header-user/>
         </div>
       </div>
@@ -94,8 +94,8 @@ import d2MenuSide from './components/menu-side'
 import d2MenuHeader from './components/menu-header'
 import d2Tabs from './components/tabs'
 import d2HeaderFullscreen from './components/header-fullscreen'
+import d2HeaderTheme from './components/header-theme'
 import d2HeaderSearch from './components/header-search'
-import d2HeaderSize from './components/header-size'
 import d2HeaderUser from './components/header-user'
 import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
 import mixinSearch from './mixins/search'
@@ -109,8 +109,8 @@ export default {
     d2MenuHeader,
     d2Tabs,
     d2HeaderFullscreen,
+    d2HeaderTheme,
     d2HeaderSearch,
-    d2HeaderSize,
     d2HeaderUser
   },
   data () {
