@@ -65,7 +65,7 @@
 <script>
 import mixinViewModule from '@/mixins/view-module'
 import AddOrUpdate from './model-add-or-update'
-import Cookies from 'js-cookie'
+import { cookieGet } from '@/common/cookie'
 import qs from 'qs'
 export default {
   mixins: [ mixinViewModule ],
@@ -90,7 +90,7 @@ export default {
     // 获取在线设计url地址
     getModelerURL (id) {
       var params = qs.stringify({
-        'token': Cookies.get('token'),
+        'token': cookieGet('token'),
         'modelId': id
       })
       return `${window.SITE_CONFIG['apiURL']}/modeler.html?${params}`
@@ -98,7 +98,7 @@ export default {
     // 获取导出url地址
     getExportURL (id) {
       var params = qs.stringify({
-        'token': Cookies.get('token')
+        'token': cookieGet('token')
       })
       return `${window.SITE_CONFIG['apiURL']}/act/model/export/${id}?${params}`
     },

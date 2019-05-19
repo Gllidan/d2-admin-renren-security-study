@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import Cookies from 'js-cookie'
+import { cookieGet } from '@/common/cookie'
 // import { Script } from 'vm'
 export default {
   data () {
@@ -30,7 +30,7 @@ export default {
   methods: {
     init () {
       this.visible = true
-      this.url = `${window.SITE_CONFIG['apiURL']}/sys/oss/upload?token=${Cookies.get('token')}`
+      this.url = `${window.SITE_CONFIG['apiURL']}/sys/oss/upload?token=${cookieGet('token')}`
       this.num = 0
       this.fileList = []
     },

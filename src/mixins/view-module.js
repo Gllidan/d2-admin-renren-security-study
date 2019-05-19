@@ -5,9 +5,9 @@
  * @Email: me@huqi.me
  * @Date: 2019-05-08 10:39:18
  * @LastEditors: huqi
- * @LastEditTime: 2019-05-17 23:31:08
+ * @LastEditTime: 2019-05-19 12:30:35
  */
-import Cookies from 'js-cookie'
+import { cookieGet } from '@/common/cookie'
 import qs from 'qs'
 export default {
   data () {
@@ -140,7 +140,7 @@ export default {
     // 导出
     exportHandle () {
       var params = qs.stringify({
-        'token': Cookies.get('token'),
+        'token': cookieGet('token'),
         ...this.dataForm
       })
       window.location.href = `${window.SITE_CONFIG['apiURL']}${this.mixinViewModuleOptions.exportURL}?${params}`
