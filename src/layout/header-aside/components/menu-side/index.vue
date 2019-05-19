@@ -1,3 +1,12 @@
+<!--
+ * @Description: file content
+ * @Author: huqi
+ * @GitHub: https://github.com/hu-qi
+ * @Email: me@huqi.me
+ * @Date: 2019-04-29 16:58:49
+ * @LastEditors: huqi
+ * @LastEditTime: 2019-05-19 13:09:41
+ -->
 <template>
   <div class="d2-layout-header-aside-menu-side">
     <el-menu
@@ -56,11 +65,11 @@ export default {
     },
     // 监听路由 控制侧边栏激活状态
     '$route': {
-      handler ({ fullPath }) {
-        this.active = fullPath
+      handler ({ name }) {
+        this.active = name
         this.$nextTick(() => {
           if (this.aside.length > 0 && this.$refs.menu) {
-            this.$refs.menu.activeIndex = fullPath
+            this.$refs.menu.activeIndex = name
           }
         })
       },
