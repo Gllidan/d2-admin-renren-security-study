@@ -1,3 +1,12 @@
+/*
+ * @Description: file content
+ * @Author: huqi
+ * @GitHub: https://github.com/hu-qi
+ * @Email: me@huqi.me
+ * @Date: 2019-04-29 21:42:32
+ * @LastEditors: huqi
+ * @LastEditTime: 2019-05-19 12:16:26
+ */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import NProgress from 'nprogress'
@@ -155,9 +164,13 @@ router.beforeEach((to, from, next) => {
     store.commit('d2admin/page/init', renrenMenuToD2AdminPageInitData(res, routeNameDict, routePathDict))
     store.commit('d2admin/search/init', renrenMenuToD2AdminSearchInitData(res, routeNameDict, routePathDict))
     next({ ...to, replace: true })
+    // 进度条
+    NProgress.done()
   }).catch(error => {
     console.log('error', error)
     next({ name: 'login' })
+    // 进度条
+    NProgress.done()
   })
 })
 
