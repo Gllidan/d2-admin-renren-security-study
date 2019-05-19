@@ -217,10 +217,7 @@ export default {
             ...this.dataForm.roleIdList,
             ...this.roleIdListDefault
           ]
-        }).then(({ data: res }) => {
-          if (res.code !== 0) {
-            return this.$message.error(res.msg)
-          }
+        }).then(res => {
           this.$message({
             message: this.$t('prompt.success'),
             type: 'success',

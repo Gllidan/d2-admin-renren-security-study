@@ -1,3 +1,12 @@
+<!--
+ * @Description: file content
+ * @Author: huqi
+ * @GitHub: https://github.com/hu-qi
+ * @Email: me@huqi.me
+ * @Date: 2019-05-08 22:03:49
+ * @LastEditors: huqi
+ * @LastEditTime: 2019-05-19 12:26:37
+ -->
 <template>
   <d2-container>
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
@@ -100,10 +109,7 @@ export default {
         cancelButtonText: this.$t('cancel'),
         type: 'warning'
       }).then(() => {
-        this.$http.post(`/act/model/deploy/${id}`).then(({ data: res }) => {
-          if (res.code !== 0) {
-            return this.$message.error(res.msg)
-          }
+        this.$http.post(`/act/model/deploy/${id}`).then(res => {
           this.$message({
             message: this.$t('prompt.success'),
             type: 'success',

@@ -5,7 +5,7 @@
  * @Email: me@huqi.me
  * @Date: 2019-05-08 22:22:36
  * @LastEditors: huqi
- * @LastEditTime: 2019-05-18 13:21:32
+ * @LastEditTime: 2019-05-19 12:26:12
  -->
 <template>
   <d2-container>
@@ -118,10 +118,7 @@ export default {
         cancelButtonText: this.$t('cancel'),
         type: 'warning'
       }).then(() => {
-        this.$http.put('/sys/schedule/pause', id ? [id] : this.dataListSelections.map(item => item.id)).then(({ data: res }) => {
-          if (res.code !== 0) {
-            return this.$message.error(res.msg)
-          }
+        this.$http.put('/sys/schedule/pause', id ? [id] : this.dataListSelections.map(item => item.id)).then(res => {
           this.$message({
             message: this.$t('prompt.success'),
             type: 'success',
@@ -147,10 +144,7 @@ export default {
         cancelButtonText: this.$t('cancel'),
         type: 'warning'
       }).then(() => {
-        this.$http.put('/sys/schedule/resume', id ? [id] : this.dataListSelections.map(item => item.id)).then(({ data: res }) => {
-          if (res.code !== 0) {
-            return this.$message.error(res.msg)
-          }
+        this.$http.put('/sys/schedule/resume', id ? [id] : this.dataListSelections.map(item => item.id)).then(res => {
           this.$message({
             message: this.$t('prompt.success'),
             type: 'success',
@@ -176,10 +170,7 @@ export default {
         cancelButtonText: this.$t('cancel'),
         type: 'warning'
       }).then(() => {
-        this.$http.put('/sys/schedule/run', id ? [id] : this.dataListSelections.map(item => item.id)).then(({ data: res }) => {
-          if (res.code !== 0) {
-            return this.$message.error(res.msg)
-          }
+        this.$http.put('/sys/schedule/run', id ? [id] : this.dataListSelections.map(item => item.id)).then(res => {
           this.$message({
             message: this.$t('prompt.success'),
             type: 'success',

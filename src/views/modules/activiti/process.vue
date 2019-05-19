@@ -1,3 +1,12 @@
+<!--
+ * @Description: file content
+ * @Author: huqi
+ * @GitHub: https://github.com/hu-qi
+ * @Email: me@huqi.me
+ * @Date: 2019-05-08 22:05:51
+ * @LastEditors: huqi
+ * @LastEditTime: 2019-05-19 12:22:51
+ -->
 <template>
   <d2-container>
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
@@ -114,10 +123,7 @@ export default {
         cancelButtonText: this.$t('cancel'),
         type: 'warning'
       }).then(() => {
-        this.$http.put(`/act/process/active/${id}`).then(({ data: res }) => {
-          if (res.code !== 0) {
-            return this.$message.error(res.msg)
-          }
+        this.$http.put(`/act/process/active/${id}`).then(res => {
           this.$message({
             message: this.$t('prompt.success'),
             type: 'success',
@@ -136,10 +142,7 @@ export default {
         cancelButtonText: this.$t('cancel'),
         type: 'warning'
       }).then(() => {
-        this.$http.put(`/act/process/suspend/${id}`).then(({ data: res }) => {
-          if (res.code !== 0) {
-            return this.$message.error(res.msg)
-          }
+        this.$http.put(`/act/process/suspend/${id}`).then(res => {
           this.$message({
             message: this.$t('prompt.success'),
             type: 'success',
@@ -158,10 +161,7 @@ export default {
         cancelButtonText: this.$t('cancel'),
         type: 'warning'
       }).then(() => {
-        this.$http.post(`/act/process/convertToModel/${id}`).then(({ data: res }) => {
-          if (res.code !== 0) {
-            return this.$message.error(res.msg)
-          }
+        this.$http.post(`/act/process/convertToModel/${id}`).then(res => {
           this.$message({
             message: this.$t('prompt.success'),
             type: 'success',

@@ -127,10 +127,7 @@ export default {
           ...this.$refs.menuListTree.getCheckedKeys()
         ]
         this.dataForm.deptIdList = this.$refs.deptListTree.getCheckedKeys()
-        this.$http[!this.dataForm.id ? 'post' : 'put']('/sys/role', this.dataForm).then(({ data: res }) => {
-          if (res.code !== 0) {
-            return this.$message.error(res.msg)
-          }
+        this.$http[!this.dataForm.id ? 'post' : 'put']('/sys/role', this.dataForm).then(res => {
           this.$message({
             message: this.$t('prompt.success'),
             type: 'success',
