@@ -5,7 +5,7 @@
  * @Email: me@huqi.me
  * @Date: 2019-04-29 21:42:32
  * @LastEditors: huqi
- * @LastEditTime: 2019-05-19 12:16:26
+ * @LastEditTime: 2019-05-19 12:38:36
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -219,8 +219,28 @@ function fnAddDynamicMenuRoutes (menuList = [], routes = []) {
     // eslint-disable-next-line
     let URL = (menuList[i].url || '').replace(/{{([^}}]+)?}}/g, (s1, s2) => eval(s2)) // URL支持{{ window.xxx }}占位符变量
     if (isURL(URL)) {
+      console.log(URL)
       route['path'] = route['name'] = `i-${menuList[i].id}`
       route['meta']['iframeURL'] = URL
+      route['component'] = {
+        render (h) {
+          return h('d2-container', {}, [
+            h('iframe', {
+              style: {
+                position: 'absolute',
+                top: '0px',
+                left: '0px',
+                height: '100%',
+                width: '100%'
+              },
+              attrs: {
+                src: URL,
+                frameborder: 0
+              }
+            })
+          ])
+        }
+      }
     } else {
       URL = URL.replace(/^\//, '').replace(/_/g, '-')
       route['path'] = route['name'] = URL.replace(/\//g, '-')
