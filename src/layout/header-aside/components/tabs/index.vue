@@ -1,3 +1,12 @@
+<!--
+ * @Description: file content
+ * @Author: huqi
+ * @GitHub: https://github.com/hu-qi
+ * @Email: me@huqi.me
+ * @Date: 2019-04-29 16:58:49
+ * @LastEditors: huqi
+ * @LastEditTime: 2019-05-19 11:43:21
+ -->
 <template>
   <div class="d2-multiple-page-control-group" flex>
     <div class="d2-multiple-page-control-content" flex-box="1">
@@ -21,7 +30,7 @@
           <el-tab-pane
             v-for="page in opened"
             :key="page.fullPath"
-            :label="page.meta.title || '未命名'"
+            :label="page.meta.title || $t('layoutTab.noName')"
             :name="page.fullPath"/>
         </el-tabs>
       </div>

@@ -1,3 +1,12 @@
+/*
+ * @Description: file content
+ * @Author: huqi
+ * @GitHub: https://github.com/hu-qi
+ * @Email: me@huqi.me
+ * @Date: 2019-04-30 09:21:09
+ * @LastEditors: huqi
+ * @LastEditTime: 2019-05-19 12:05:59
+ */
 const t = {}
 
 t.loading = '加载中...'
@@ -23,6 +32,10 @@ t.prompt.info = '确定进行[{handle}]操作?'
 t.prompt.success = '操作成功'
 t.prompt.failed = '操作失败'
 t.prompt.deleteBatch = '请选择删除项'
+t.prompt.logout = '注销当前账户吗?'
+
+t.message = {}
+t.message.logoutCancel = '放弃注销用户'
 
 t.validate = {}
 t.validate.required = '必填项不能为空'
@@ -49,6 +62,32 @@ t.updatePassword.newPassword = '新密码'
 t.updatePassword.comfirmPassword = '确认密码'
 t.updatePassword.validate = {}
 t.updatePassword.validate.comfirmPassword = '确认密码与新密码输入不一致'
+
+t.theme = {}
+t.theme.d2 = 'D2Admin 经典'
+t.theme.violet = '紫罗兰'
+t.theme.line = '简约线条'
+t.theme.star = '繁星'
+t.theme.tomorrowNightBlue = 'Tomorrow Night Blue (vsCode)'
+
+t.layout = {}
+t.layout.hello = '你好'
+t.layout.logout = '注销'
+t.layout.updatePassword = '修改密码'
+t.layout.tooltip = {}
+t.layout.tooltip.fullscreen = '全屏'
+t.layout.tooltip.fullscreenActive = '退出全屏'
+t.layout.tooltip.theme = '主题'
+t.layout.tooltip.search = '搜索'
+t.layout.search = {}
+t.layout.search.placeholder = '搜索页面'
+t.layout.search.tip1 = '您可以使用快捷键'
+t.layout.search.tip2 = '唤醒搜索面板，按'
+t.layout.search.tip3 = '关闭。'
+
+t.layoutTab = {}
+t.layoutTab.index = '首页'
+t.layoutTab.noName = '未命名'
 
 t.contentTabs = {}
 t.contentTabs.closeCurrent = '关闭当前标签页'

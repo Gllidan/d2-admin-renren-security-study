@@ -5,19 +5,19 @@
  * @Email: me@huqi.me
  * @Date: 2019-04-29 16:58:49
  * @LastEditors: huqi
- * @LastEditTime: 2019-05-19 11:30:52
+ * @LastEditTime: 2019-05-19 12:02:28
  -->
 <template>
   <el-dropdown size="small" class="d2-mr">
-    <span class="btn-text">{{info.name ? `你好 ${info.name}` : '未登录'}}</span>
+    <span class="btn-text">{{info.name ? `${$t('layout.hello')} ${info.name}` : ''}}</span>
     <el-dropdown-menu slot="dropdown">
       <el-dropdown-item @click.native="logOff">
         <d2-icon name="power-off" class="d2-mr-5"/>
-        注销
+        {{$t('layout.logout')}}
       </el-dropdown-item>
       <el-dropdown-item @click.native="resetPassword">
         <d2-icon name="key" class="d2-mr-5"/>
-        修改密码
+        {{$t('layout.updatePassword')}}
       </el-dropdown-item>
     </el-dropdown-menu>
     <d2-password-update-dialog v-if="updatePassowrdVisible" ref="updatePassowrd"/>

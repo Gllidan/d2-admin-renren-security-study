@@ -1,3 +1,12 @@
+<!--
+ * @Description: file content
+ * @Author: huqi
+ * @GitHub: https://github.com/hu-qi
+ * @Email: me@huqi.me
+ * @Date: 2019-04-29 16:58:49
+ * @LastEditors: huqi
+ * @LastEditTime: 2019-05-19 12:07:33
+ -->
 <template>
   <div
     class="panel-search"
@@ -15,7 +24,7 @@
         ref="input"
         v-model="searchText"
         suffix-icon="el-icon-search"
-        placeholder="搜索页面"
+        :placeholder="$t('layout.search.placeholder')"
         :fetch-suggestions="querySearch"
         :trigger-on-focus="false"
         :clearable="true"
@@ -26,11 +35,11 @@
           :item="item"/>
       </el-autocomplete>
       <div class="panel-search__tip">
-        您可以使用快捷键
+        {{$t('layout.search.tip1')}}
         <span class="panel-search__key">{{hotkey.open}}</span>
-        唤醒搜索面板，按
+        {{$t('layout.search.tip2')}}
         <span class="panel-search__key">{{hotkey.close}}</span>
-        关闭
+        {{$t('layout.search.tip3')}}
       </div>
     </div>
     <div

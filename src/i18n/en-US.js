@@ -1,3 +1,12 @@
+/*
+ * @Description: file content
+ * @Author: huqi
+ * @GitHub: https://github.com/hu-qi
+ * @Email: me@huqi.me
+ * @Date: 2019-04-30 09:18:34
+ * @LastEditors: huqi
+ * @LastEditTime: 2019-05-19 12:05:39
+ */
 const t = {}
 
 t.loading = 'Loading...'
@@ -23,7 +32,10 @@ t.prompt.info = 'Confirm to carry out [{handle}] operation?'
 t.prompt.success = 'Succeeded'
 t.prompt.failed = 'Failed'
 t.prompt.deleteBatch = 'Please select delete item'
+t.prompt.logout = 'Do you cancel your current account ?'
 
+t.message = {}
+t.message.logoutCancel = 'Abandoning logout users'
 t.validate = {}
 t.validate.required = 'Required field cannot be empty'
 t.validate.format = '{attr} format error'
@@ -49,6 +61,32 @@ t.updatePassword.newPassword = 'New Password'
 t.updatePassword.comfirmPassword = 'Confirm'
 t.updatePassword.validate = {}
 t.updatePassword.validate.comfirmPassword = 'Confirm password is not consistent with new password input'
+
+t.theme = {}
+t.theme.d2 = 'D2Admin Classic'
+t.theme.violet = 'Violet'
+t.theme.line = 'Line'
+t.theme.star = 'Star'
+t.theme.tomorrowNightBlue = 'Tomorrow Night Blue (vsCode)'
+
+t.layout = {}
+t.layout.hello = 'Hello'
+t.layout.logout = 'Logout'
+t.layout.updatePassword = 'Update Password'
+t.layout.tooltip = {}
+t.layout.tooltip.fullscreen = 'Fullscreen'
+t.layout.tooltip.fullscreenActive = 'Exit Fullscreen'
+t.layout.tooltip.theme = 'Theme'
+t.layout.tooltip.search = 'Search'
+t.layout.search = {}
+t.layout.search.placeholder = 'Search Pages'
+t.layout.search.tip1 = 'Press'
+t.layout.search.tip2 = 'open search panel, and press'
+t.layout.search.tip3 = 'close it.'
+
+t.layoutTab = {}
+t.layoutTab.index = 'Home'
+t.layoutTab.noName = 'No Name'
 
 t.contentTabs = {}
 t.contentTabs.closeCurrent = 'Close Current Tab'

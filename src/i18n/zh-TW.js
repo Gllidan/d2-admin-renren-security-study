@@ -1,3 +1,12 @@
+/*
+ * @Description: file content
+ * @Author: huqi
+ * @GitHub: https://github.com/hu-qi
+ * @Email: me@huqi.me
+ * @Date: 2019-04-30 09:22:14
+ * @LastEditors: huqi
+ * @LastEditTime: 2019-05-19 12:06:13
+ */
 const t = {}
 
 t.loading = '加載中...'
@@ -23,6 +32,10 @@ t.prompt.info = '確定進行[{handle}]操作?'
 t.prompt.success = '操作成功'
 t.prompt.failed = '操作失敗'
 t.prompt.deleteBatch = '請選擇刪除項'
+t.prompt.logout = '註銷當前帳戶嗎?'
+
+t.message = {}
+t.message.logoutCancel = '放弃註銷用戶'
 
 t.validate = {}
 t.validate.required = '必填項不能為空'
@@ -49,6 +62,32 @@ t.updatePassword.newPassword = '新密碼'
 t.updatePassword.comfirmPassword = '確認密碼'
 t.updatePassword.validate = {}
 t.updatePassword.validate.comfirmPassword = '確認密碼與新密碼輸入不一致'
+
+t.theme = {}
+t.theme.d2 = 'D2Admin 經典'
+t.theme.violet = '紫羅蘭'
+t.theme.line = '簡約線條'
+t.theme.star = '流星'
+t.theme.tomorrowNightBlue = 'Tomorrow Night Blue (vsCode)'
+
+t.layout = {}
+t.layout.hello = '你好'
+t.layout.logout = '註銷'
+t.layout.updatePassword = '修改密碼'
+t.layout.tooltip = {}
+t.layout.tooltip.fullscreen = '全屏'
+t.layout.tooltip.fullscreenActive = '退出全屏'
+t.layout.tooltip.theme = '主題'
+t.layout.tooltip.search = '查找'
+t.layout.search = {}
+t.layout.search.placeholder = '檢索頁面'
+t.layout.search.tip1 = '您可以使用快速鍵'
+t.layout.search.tip2 = '喚醒檢索面板，按'
+t.layout.search.tip3 = '關閉。'
+
+t.layoutTab = {}
+t.layoutTab.index = '首頁'
+t.layoutTab.noName = '未命名'
 
 t.contentTabs = {}
 t.contentTabs.closeCurrent = '關閉當前標籤頁'
