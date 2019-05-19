@@ -1,3 +1,12 @@
+/*
+ * @Description: file content
+ * @Author: huqi
+ * @GitHub: https://github.com/hu-qi
+ * @Email: me@huqi.me
+ * @Date: 2019-05-07 15:21:21
+ * @LastEditors: huqi
+ * @LastEditTime: 2019-05-19 11:26:49
+ */
 import request from '@/plugin/axios'
 
 /**
@@ -53,6 +62,13 @@ export const sysUserService = {
   getInfo () {
     return request({
       url: '/sys/user/info'
+    })
+  },
+  updatePassword (data) {
+    return request({
+      url: '/sys/user/password',
+      method: 'put',
+      data
     })
   }
 }

@@ -1,3 +1,12 @@
+/*
+ * @Description: file content
+ * @Author: huqi
+ * @GitHub: https://github.com/hu-qi
+ * @Email: me@huqi.me
+ * @Date: 2019-04-29 21:41:23
+ * @LastEditors: huqi
+ * @LastEditTime: 2019-05-19 11:32:47
+ */
 /**
  * @description 返回这个样式的颜色值
  * @param {String} type 样式名称 [ primary | success | warning | danger | text ]
@@ -45,32 +54,4 @@ export const colorfulLog = function (textArr) {
  */
 export const log = function (text) {
   colorfulLog([{ text }])
-}
-
-/**
- * @description 打印 primary 样式的文字
- */
-export const primaryLog = function (text) {
-  colorfulLog([{ text, type: 'primary' }])
-}
-
-/**
- * @description 打印 success 样式的文字
- */
-export const successLog = function (text) {
-  colorfulLog([{ text, type: 'success' }])
-}
-
-/**
- * @description 打印 warning 样式的文字
- */
-export const warningLog = function (text) {
-  colorfulLog([{ text, type: 'warning' }])
-}
-
-/**
- * @description 打印 danger 样式的文字
- */
-export const dangerLog = function (text) {
-  colorfulLog([{ text, type: 'danger' }])
 }

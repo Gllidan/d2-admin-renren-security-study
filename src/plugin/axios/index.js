@@ -1,31 +1,23 @@
+/*
+ * @Description: file content
+ * @Author: huqi
+ * @GitHub: https://github.com/hu-qi
+ * @Email: me@huqi.me
+ * @Date: 2019-04-29 16:58:49
+ * @LastEditors: huqi
+ * @LastEditTime: 2019-05-19 11:36:58
+ */
 import axios from 'axios'
 import { Message } from 'element-ui'
 import { cookieGet } from '@/common/cookie'
 import { isPlainObject } from 'lodash'
 import qs from 'qs'
-import { dangerLog } from '@/common/log'
 import router from '@/router'
-import store from '@/store'
 
-// 记录和显示错误
-function errorLog (error) {
-  console.log(process.env.NODE_ENV)
-  // 添加到日志
-  store.dispatch('d2admin/log/push', {
-    message: '数据请求异常',
-    type: 'danger',
-    meta: {
-      error
-    }
-  })
-  // 打印到控制台
-  if (process.env.NODE_ENV === 'development') {
-    dangerLog('>>>>>> Error >>>>>>')
-    console.log(error)
-  }
+function errorLog (info) {
   // 显示提示
   Message({
-    message: error.message,
+    message: info,
     type: 'error',
     duration: 5 * 1000
   })
@@ -83,12 +75,12 @@ service.interceptors.response.use(
       // TODO: 清除用户信息
       router.replace({ name: 'login' })
       return Promise.reject(response.data.msg)
-    }
-    if (response.data.code !== 0) {
-      errorLog(new Error(response.data.msg))
+    } else if (response.data.code !== 0) {
+      errorLog(response.data.msg)
       return Promise.reject(response.data.msg)
+    } else {
+      return response.data.data
     }
-    return response.data.data
   },
   error => {
     if (error && error.response) {
@@ -107,7 +99,7 @@ service.interceptors.response.use(
         default: break
       }
     }
-    errorLog(error)
+    errorLog(error.message)
     return Promise.reject(error)
   }
 )

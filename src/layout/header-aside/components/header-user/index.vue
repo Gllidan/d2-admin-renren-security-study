@@ -1,3 +1,12 @@
+<!--
+ * @Description: file content
+ * @Author: huqi
+ * @GitHub: https://github.com/hu-qi
+ * @Email: me@huqi.me
+ * @Date: 2019-04-29 16:58:49
+ * @LastEditors: huqi
+ * @LastEditTime: 2019-05-19 11:30:52
+ -->
 <template>
   <el-dropdown size="small" class="d2-mr">
     <span class="btn-text">{{info.name ? `你好 ${info.name}` : '未登录'}}</span>
@@ -6,13 +15,27 @@
         <d2-icon name="power-off" class="d2-mr-5"/>
         注销
       </el-dropdown-item>
+      <el-dropdown-item @click.native="resetPassword">
+        <d2-icon name="key" class="d2-mr-5"/>
+        修改密码
+      </el-dropdown-item>
     </el-dropdown-menu>
+    <d2-password-update-dialog v-if="updatePassowrdVisible" ref="updatePassowrd"/>
   </el-dropdown>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import d2PasswordUpdateDialog from './components/password-update'
 export default {
+  components: {
+    d2PasswordUpdateDialog
+  },
+  data () {
+    return {
+      updatePassowrdVisible: false
+    }
+  },
   computed: {
     ...mapState('d2admin/user', [
       'info'
@@ -28,6 +51,12 @@ export default {
     logOff () {
       this.logout({
         confirm: true
+      })
+    },
+    resetPassword () {
+      this.updatePassowrdVisible = true
+      this.$nextTick(() => {
+        this.$refs.updatePassowrd.init()
       })
     }
   }
