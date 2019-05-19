@@ -1,3 +1,12 @@
+/*
+ * @Description: file content
+ * @Author: huqi
+ * @GitHub: https://github.com/hu-qi
+ * @Email: me@huqi.me
+ * @Date: 2019-04-29 16:58:49
+ * @LastEditors: huqi
+ * @LastEditTime: 2019-05-19 13:25:03
+ */
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 // 拼接路径
@@ -53,7 +62,7 @@ module.exports = {
                 // 移除 console
                 // 其它优化选项 https://segmentfault.com/a/1190000010874406
                 compress: {
-                  warnings: false,
+                  // warnings: false,
                   drop_console: true,
                   drop_debugger: true,
                   pure_funcs: ['console.log']
